@@ -18,10 +18,11 @@ let urlCounter = 1;
 dns.lookup('freecodecamp.org', (err) => {
   if (err) {
     res.json({error: 'invalid URL'});
-  } else {
+  } 
+  else {
     console.log('DNS lookup successful');
   }
-}
+});
 app.post('/api/shorturl', (req, res) => {
   const { original_url } = req.body;
 
