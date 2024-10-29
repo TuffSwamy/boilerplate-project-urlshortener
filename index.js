@@ -5,6 +5,7 @@ const req = require('express/lib/request');
 const res = require('express/lib/response');
 const bodyParser = require('body-parser');
 const app = express();
+const validUrl = require('valid-url'); 
 
 // Basic Configuration
 const port = process.env.PORT || 3000;
@@ -18,8 +19,12 @@ let urlDatabase = {};
 let shortUrlIndex=1; 
 app.post('/api/shorturl',(req,res)=>{
   let url = req.body.url;
-  if(!url){
-    return res.json({error:'invalid url'});
+  if(!validUrl.isUri(url)){
+    return res.json(
+      {
+        error:'invalid url'
+      }
+    );
   }
   urlDatabase[shortUrlIndex] = url;
   res.json(
