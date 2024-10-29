@@ -5,6 +5,8 @@ const app = express();
 const bodyParser = require('body-parser');
 const PORT = process.env.PORT || 3000;
 const dns = require('dns');
+const res = require('express/lib/response');
+const { error } = require('console');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -14,6 +16,12 @@ let urlCounter = 1;
 
 // POST route for creating shortened URLs
 dns.lookup('freecodecamp.org', (err) => {
+  if (err) {
+    res.json({error: 'invalid URL'});
+  } else {
+    console.log('DNS lookup successful');
+  }
+}
 app.post('/api/shorturl', (req, res) => {
   const { original_url } = req.body;
 
