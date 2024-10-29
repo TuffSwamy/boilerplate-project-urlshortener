@@ -14,15 +14,21 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use('/public', express.static(`${process.cwd()}/public`));
-
+let urlDatabase = {};
+let shortUrlIndex=1; 
 app.post('/api/shorturl',(req,res)=>{
+  urlDatabase[shortUrlIndex] = req.body.url;
   res.json(
     {
       original_url: req.body.url,
-      short_url:1
+      short_url:shortUrlIndex
     }
     );
+    shorturlIndex++;
 });
+app.get('/api/shorturl/:shorturl',(req,res)=>{
+res.redirect(urlDatabase[req.params.shorturl]);
+}
 app.get('/', function(req, res) {
   res.sendFile(process.cwd() + '/views/index.html');
 });
