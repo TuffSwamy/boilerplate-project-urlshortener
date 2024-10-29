@@ -40,7 +40,7 @@ app.post('/api/shorturl', (req, res) => {
 });
 
 // GET route for redirecting
-app.get('/api/shorturl/:short_url', (req, res) => {
+/*app.get('/api/shorturl/:short_url', (req, res) => {
   const { short_url } = req.params;
   const original_url = urlDatabase[short_url];
 
@@ -50,7 +50,7 @@ app.get('/api/shorturl/:short_url', (req, res) => {
     res.json({ error: 'No short URL found for the given input' });
   }
 });
-
+*/
 // Listen on specified port
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
