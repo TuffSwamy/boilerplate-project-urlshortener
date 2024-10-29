@@ -18,7 +18,7 @@ let urlDatabase = {};
 let shortUrlIndex=1; 
 app.post('/api/shorturl',(req,res)=>{
   let url = req.body.url;
-  if(!url)c{
+  if(!url){
     return res.json({error:'invalid url'});
   }
   urlDatabase[shortUrlIndex] = url;
