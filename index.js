@@ -14,6 +14,7 @@ app.use(bodyParser.json());
 let urlDatabase = {}; // { short_url: original_url }
 let urlCounter = 1;
 
+app.use(express.json());
 // POST route for creating shortened URLs
 dns.lookup('freecodecamp.org', (err) => {
   if (err) {
@@ -24,18 +25,6 @@ dns.lookup('freecodecamp.org', (err) => {
   }
 });
 app.post('/api/shorturl', (req, res) => {
-  const { original_url } = req.body;
-
-  // Validate URL
-  dns.lookup(original_url, (err) => {
-    if (err) {
-      return res.json({ error: 'invalid URL' });
-    }
-  });
-  // Store the URL and assign a short URL identifier
-  const short_url = urlCounter++;
-  urlDatabase[short_url] = original_url;
-
   res.json({ original_url, short_url });
 });
 
