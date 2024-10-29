@@ -17,7 +17,11 @@ app.use('/public', express.static(`${process.cwd()}/public`));
 let urlDatabase = {};
 let shortUrlIndex=1; 
 app.post('/api/shorturl',(req,res)=>{
-  urlDatabase[shortUrlIndex] = req.body.url;
+  let url = req.body.url;
+  if(!url)){
+    return res.json({error:'invalid url'});
+  }
+  urlDatabase[shortUrlIndex] = url;
   res.json(
     {
       original_url: req.body.url,
