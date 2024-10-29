@@ -19,7 +19,7 @@ let urlDatabase = {};
 let shortUrlIndex=1; 
 app.post('/api/shorturl',(req,res)=>{
   let url = req.body.url;
-  if(!validUrl.isUri(url)){
+  if(!validUrl.isHttpUri(url)){
     return res.json(
       {
         error:'invalid url'
