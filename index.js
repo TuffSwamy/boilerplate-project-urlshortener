@@ -1,6 +1,8 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
+const req = require('express/lib/request');
+const res = require('express/lib/response');
 const app = express();
 
 // Basic Configuration
@@ -10,6 +12,14 @@ app.use(cors());
 
 app.use('/public', express.static(`${process.cwd()}/public`));
 
+app.post('/api/shorturl',(req,res)=>{
+  res.json(
+    {
+      originial_url:req.body.url,
+       short_url:1
+    }
+    );
+});
 app.get('/', function(req, res) {
   res.sendFile(process.cwd() + '/views/index.html');
 });
