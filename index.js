@@ -15,8 +15,8 @@ app.use('/public', express.static(`${process.cwd()}/public`));
 app.post('/api/shorturl',(req,res)=>{
   res.json(
     {
-      originial_url:req.body.url,
-       short_url:1
+      original_url: req.body.url,
+      short_url:1
     }
     );
 });
