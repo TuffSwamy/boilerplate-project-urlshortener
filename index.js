@@ -28,7 +28,7 @@ app.post('/api/shorturl',(req,res)=>{
 });
 app.get('/api/shorturl/:shorturl',(req,res)=>{
 res.redirect(urlDatabase[req.params.shorturl]);
-}
+});
 app.get('/', function(req, res) {
   res.sendFile(process.cwd() + '/views/index.html');
 });
