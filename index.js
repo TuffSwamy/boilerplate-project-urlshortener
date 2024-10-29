@@ -3,8 +3,8 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-const validUrl = require('valid-url'); // Optionally, install this package for URL validation
 const PORT = process.env.PORT || 3000;
+const dns = require('dns');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -13,14 +13,16 @@ let urlDatabase = {}; // { short_url: original_url }
 let urlCounter = 1;
 
 // POST route for creating shortened URLs
+dns.lookup('freecodecamp.org', (err) => {
 app.post('/api/shorturl', (req, res) => {
   const { original_url } = req.body;
 
   // Validate URL
-  if (!validUrl.isWebUri(original_url)) {
-    return res.json({ error: 'invalid URL' });
-  }
-
+  dns.lookup(original_url, (err) => {
+    if (err) {
+      return res.json({ error: 'invalid URL' });
+    }
+  });
   // Store the URL and assign a short URL identifier
   const short_url = urlCounter++;
   urlDatabase[short_url] = original_url;
